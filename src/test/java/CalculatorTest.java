@@ -47,7 +47,7 @@ public class CalculatorTest {
         //Phát sinh kiểu ngoại lệ mong muốn
         ArithmeticException ex = assertThrows(
                 ArithmeticException.class,
-                () -> calculator.div(2,1));
+                () -> calculator.div(2,0));
         assertEquals("Division by zero", ex.getMessage());
     }
 
@@ -55,7 +55,7 @@ public class CalculatorTest {
     public void testDivideByZero_tryCatch(){
         try{
             //gọi phương thức phát sinh ngoại lệ
-            calculator.div(2,1);
+            calculator.div(2,0);
             fail("ArithmeticException expected");
         }catch (ArithmeticException ex){
             assertEquals("Division by zero",ex.getMessage());
@@ -78,11 +78,11 @@ public class CalculatorTest {
     public void testAllOperationsWithInternalError(){
         assertAll("Minh hoạ gom nhiều test cùng một lúc bao gồm cả trường hợp lỗi",
                 //Sai
-                () -> assertEquals(5, calculator.add(2,2)),
-                () -> assertEquals(5, calculator.div(4,2)),
+                () -> assertEquals(4, calculator.add(2,2)),
+                () -> assertEquals(2, calculator.div(4,2)),
                 //Dung
                 () -> assertEquals(5, calculator.sub(8,3)),
-                () -> assertEquals(4, calculator.mul(2,3)),
+                () -> assertEquals(6, calculator.mul(2,3)),
                 () -> assertThrows(ArithmeticException.class, () -> {calculator.div(10,0);}, "Division by zero")
         );
     }
